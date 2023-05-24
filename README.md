@@ -10,7 +10,6 @@ Laravel Open Blog is an open-source project that provides a quick start admin da
 -   CRUD Operations: Perform Create, Read, Update, and Delete operations for blog posts, categories, and tags.
 -   SEO-Friendly URLs: Generate search engine optimized URLs for blog posts using slugs.
 -   Markdown Editor: Integrated markdown editor for easy blog post creation.
--   Theming Support: Customize the look and feel of the blog website with theme support.
 
 ## Getting Started
 
@@ -18,10 +17,8 @@ Follow the steps below to get started with Laravel Open Blog:
 
 ### Prerequisites
 
--   PHP (>= 7.4)
+-   PHP (>= 8.2)
 -   Composer
--   Node.js (>= 12.0)
--   NPM or Yarn
 
 ### Clone the Repository
 
