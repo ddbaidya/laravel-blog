@@ -41,10 +41,21 @@
                                         <img src="{{ asset('/assets/admin/img/avatars/avatar.jpg') }}" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
                                     </div>
                                     <form method="POST" action="{{ route('admin.authenticate') }}">
+                                        <div class="mt-5">
+                                            @if ($errors->any())
+                                            <ul>
+                                                @forelse ($errors->all() as $error)
+                                                <li class="text-danger">{{ $error }}</li>
+                                                @empty
+
+                                                @endforelse
+                                            </ul>
+                                            @endif
+                                        </div>
                                         @csrf
                                         <div class="mb-3">
                                             <label class="form-label">Email</label>
-                                            <input class="form-control form-control-lg" type="email" name="email" placeholder="Enter your email" />
+                                            <input class="form-control form-control-lg" type="email" name="email" placeholder="Enter your email" value="{{ old('email') }}" />
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Password</label>
@@ -63,7 +74,7 @@
                                         </div>
                                         <div class="text-center mt-3">
                                             <button type="submit" class="btn btn-lg btn-primary">Sign in</a>
-                                            <!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
+                                                <!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
                                         </div>
                                     </form>
                                 </div>
