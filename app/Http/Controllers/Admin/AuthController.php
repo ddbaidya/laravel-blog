@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\AuthRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -20,12 +21,12 @@ class AuthController extends Controller
     }
 
     /**
-     * Authenticate user.
+     * Authenticate Admin.
      *
      * @param \App\Http\Requests\Admin\AuthRequest $request;
      * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
-    public function authenticate(AuthRequest $request)
+    public function authenticate(AuthRequest $request): RedirectResponse
     {
         if (auth::guard('admin')->check()) {
             return redirect()->route('admin.dashboard');
@@ -38,5 +39,18 @@ class AuthController extends Controller
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
+    }
+
+    /**
+     * Logout Admin.
+     *
+     * @param \Illuminate\Http\Request $request
+     */
+    public function logout(Request $request): RedirectResponse
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('admin.login');
     }
 }
