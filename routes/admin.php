@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Admin\AuthController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');
+
+Route::group(['middleware'=>'auth:admin'], function(){
+    Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
+});
