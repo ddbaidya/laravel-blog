@@ -16,16 +16,20 @@ class AuthController extends Controller
      */
     public function index()
     {
-        return view('admin.authentications.login');
+        return (auth::guard('admin')->check()) ? redirect()->route('admin.dashboard') : view('admin.authentications.login');
     }
 
     /**
      * Authenticate user.
      *
-     * @return \Illuminate\View\View
+     * @param \App\Http\Requests\Admin\AuthRequest $request;
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
     public function authenticate(AuthRequest $request)
     {
+        if (auth::guard('admin')->check()) {
+            return redirect()->route('admin.dashboard');
+        }
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
             $request->session()->regenerate();
             return redirect()->intended(route('admin.dashboard'));
